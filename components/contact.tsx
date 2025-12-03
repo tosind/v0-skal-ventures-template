@@ -1,38 +1,62 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
-import { Button } from "./ui/button"
-import { Input } from "./ui/input"
-import { Textarea } from "./ui/textarea"
+import { useEffect } from "react"
 
 export function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    clinic: "",
-    message: "",
-  })
+  useEffect(() => {
+    const script = document.createElement("script")
+    script.type = "text/javascript"
+    script.innerHTML = `
+      (function (C, A, L) { 
+        let p = function (a, ar) { a.q.push(ar); }; 
+        let d = C.document; 
+        C.Cal = C.Cal || function () { 
+          let cal = C.Cal; 
+          let ar = arguments; 
+          if (!cal.loaded) { 
+            cal.ns = {}; 
+            cal.q = cal.q || []; 
+            d.head.appendChild(d.createElement("script")).src = A; 
+            cal.loaded = true; 
+          } 
+          if (ar[0] === L) { 
+            const api = function () { p(api, arguments); }; 
+            const namespace = ar[1]; 
+            api.q = api.q || []; 
+            if(typeof namespace === "string"){
+              cal.ns[namespace] = cal.ns[namespace] || api;
+              p(cal.ns[namespace], ar);
+              p(cal, ["initNamespace", namespace]);
+            } else p(cal, ar); 
+            return;
+          } 
+          p(cal, ar); 
+        }; 
+      })(window, "https://app.cal.com/embed/embed.js", "init");
+      
+      Cal("init", "voiceagent", {origin:"https://app.cal.com"});
+      
+      Cal.ns.voiceagent("inline", {
+        elementOrSelector:"#my-cal-inline-voiceagent",
+        config: {"layout":"month_view"},
+        calLink: "west-work-studios-k1avnr/voiceagent",
+      });
+      
+      Cal.ns.voiceagent("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+    `
+    document.body.appendChild(script)
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle form submission
-    console.log("[v0] Form submitted:", formData)
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }))
-  }
+    return () => {
+      if (document.body.contains(script)) {
+        document.body.removeChild(script)
+      }
+    }
+  }, [])
 
   return (
     <section id="contact" className="relative py-24 md:py-32 bg-muted/20">
       <div className="container">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-sentient mb-6">
               Ready to <i className="font-light">transform</i> your practice?
@@ -42,92 +66,9 @@ export function Contact() {
             </p>
           </div>
 
-          <form
-            onSubmit={handleSubmit}
-            className="space-y-6 p-8 md:p-10 rounded-lg border border-border/50 bg-muted/30 backdrop-blur-sm"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-mono text-foreground/80 mb-2">
-                  Full Name *
-                </label>
-                <Input
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="bg-background/50"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-mono text-foreground/80 mb-2">
-                  Email Address *
-                </label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="bg-background/50"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="phone" className="block text-sm font-mono text-foreground/80 mb-2">
-                  Phone Number
-                </label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="bg-background/50"
-                />
-              </div>
-              <div>
-                <label htmlFor="clinic" className="block text-sm font-mono text-foreground/80 mb-2">
-                  Clinic Name *
-                </label>
-                <Input
-                  id="clinic"
-                  name="clinic"
-                  value={formData.clinic}
-                  onChange={handleChange}
-                  required
-                  className="bg-background/50"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="message" className="block text-sm font-mono text-foreground/80 mb-2">
-                Tell us about your practice
-              </label>
-              <Textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                rows={4}
-                className="bg-background/50 resize-none"
-                placeholder="Number of locations, current booking challenges, monthly call volume, etc."
-              />
-            </div>
-
-            <Button type="submit" size="lg" className="w-full md:w-auto">
-              Schedule Demo Call
-            </Button>
-
-            <p className="text-sm text-foreground/50 font-mono">
-              By submitting, you agree to be contacted by West Work Studio about MedSpaAI.
-            </p>
-          </form>
+          <div className="p-8 md:p-10 rounded-lg border border-border/50 bg-muted/30 backdrop-blur-sm">
+            <div id="my-cal-inline-voiceagent" style={{ width: "100%", height: "600px", overflow: "scroll" }} />
+          </div>
         </div>
 
         {/* Footer */}

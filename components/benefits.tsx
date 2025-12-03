@@ -1,37 +1,32 @@
 "use client"
 
-import { Phone, Clock, TrendingUp, Users, MessageSquare, Calendar } from "lucide-react"
+import { Calendar, MessageSquare, Clock, DollarSign, CheckCircle } from "lucide-react"
 
 const benefits = [
   {
-    icon: Phone,
-    title: "Never Miss a Call",
-    description: "Capture every opportunity with AI that answers 24/7, even during peak hours and after closing time.",
-  },
-  {
-    icon: Clock,
-    title: "24/7 Availability",
-    description: "Your clients can book appointments and get answers anytime, creating a seamless experience.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Increase Revenue",
-    description: "Convert more inquiries into bookings with instant responses and intelligent upselling.",
-  },
-  {
-    icon: Users,
-    title: "Better Client Experience",
-    description: "Provide personalized service at scale with AI that remembers client preferences and history.",
-  },
-  {
-    icon: MessageSquare,
-    title: "Reduce Staff Workload",
-    description: "Free your team from repetitive tasks so they can focus on in-person client care.",
+    icon: CheckCircle,
+    title: "Never miss a call again",
+    description: "Capture every opportunity with AI that answers instantly, 24/7, even during peak hours.",
   },
   {
     icon: Calendar,
-    title: "Smart Scheduling",
-    description: "Optimize your calendar with AI that understands treatment durations and staff availability.",
+    title: "Instant appointment booking",
+    description: "Turn inquiries into confirmed bookings in seconds without staff intervention.",
+  },
+  {
+    icon: MessageSquare,
+    title: "Handles FAQs + pricing questions",
+    description: "Answer treatment questions, pricing, and package details automatically.",
+  },
+  {
+    icon: Clock,
+    title: "Converts after-hours callers",
+    description: "Book appointments and qualify leads even when your clinic is closed.",
+  },
+  {
+    icon: DollarSign,
+    title: "Saves $3–$5k/month in staffing",
+    description: "Reduce front desk costs while improving response times and client satisfaction.",
   },
 ]
 
