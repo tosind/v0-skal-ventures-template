@@ -1,9 +1,26 @@
 "use client"
 
 import { useEffect } from "react"
+import { trackEvent } from "@/lib/facebook-client"
 
 export function Contact() {
   useEffect(() => {
+    const handleCalComBooking = () => {
+      const observer = new MutationObserver(() => {
+        const bookingConfirmation = document.querySelector('[data-testid="booking-confirmation"]')
+        if (bookingConfirmation) {
+          trackEvent("Schedule")
+          observer.disconnect()
+        }
+      })
+
+      observer.observe(document.body, { subtree: true, childList: true })
+
+      return () => observer.disconnect()
+    }
+
+    handleCalComBooking()
+
     const script = document.createElement("script")
     script.type = "text/javascript"
     script.innerHTML = `
@@ -43,6 +60,18 @@ export function Contact() {
       });
       
       Cal.ns.voiceagent("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+      
+      Cal.ns.voiceagent("on", {
+        action: "bookingSuccessful",
+        callback: function() {
+          window.fbq && window.fbq('track', 'Schedule');
+          fetch('/api/facebook-events', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ eventName: 'Schedule' })
+          });
+        }
+      });
     `
     document.body.appendChild(script)
 

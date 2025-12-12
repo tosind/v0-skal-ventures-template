@@ -5,9 +5,15 @@ import { GL } from "./gl"
 import { Pill } from "./pill"
 import { Button } from "./ui/button"
 import { useState } from "react"
+import { trackEvent } from "@/lib/facebook-client"
 
 export function Hero() {
   const [hovering, setHovering] = useState(false)
+
+  const handleTryVoiceAgent = () => {
+    trackEvent("Lead")
+  }
+
   return (
     <div className="flex flex-col h-svh justify-between">
       <GL hovering={hovering} />
@@ -23,12 +29,12 @@ export function Hero() {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-14">
-          <Link className="contents max-sm:hidden" href="/#demo">
+          <Link className="contents max-sm:hidden" href="/#demo" onClick={handleTryVoiceAgent}>
             <Button onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)}>
               Try the Voice Agent →
             </Button>
           </Link>
-          <Link className="contents sm:hidden" href="/#demo">
+          <Link className="contents sm:hidden" href="/#demo" onClick={handleTryVoiceAgent}>
             <Button size="sm" onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)}>
               Try the Voice Agent →
             </Button>
