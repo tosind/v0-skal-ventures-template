@@ -105,7 +105,7 @@ export function Contact() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <p className="text-sm text-foreground/60 font-mono">© 2025 West Work Studio. All rights reserved.</p>
             <div className="flex gap-6">
-              <a href="#" className="text-sm text-foreground/60 hover:text-foreground transition-colors">
+              <a href="/privacy-policy" className="text-sm text-foreground/60 hover:text-foreground transition-colors">
                 Privacy Policy
               </a>
               <a href="#" className="text-sm text-foreground/60 hover:text-foreground transition-colors">
