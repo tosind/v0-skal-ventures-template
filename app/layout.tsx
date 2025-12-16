@@ -35,6 +35,33 @@ export default function RootLayout({
           `}
         </Script>
 
+        <Script id="ga-event-helpers" strategy="afterInteractive">
+          {`
+            // Helper function to track and send a GA event before navigating
+            function gtagEventWithNavigation(eventName, url) {
+              var callback = function () {
+                if (typeof url === 'string') {
+                  window.location = url;
+                }
+              };
+              gtag('event', eventName, {
+                'event_callback': callback,
+                'event_timeout': 2000,
+              });
+              return false;
+            }
+
+            // Specific event handlers for common actions
+            window.gtagScheduleCall = function(url) {
+              return gtagEventWithNavigation('call_scheduled', url);
+            };
+
+            window.gtagDemoRequested = function(url) {
+              return gtagEventWithNavigation('demo_requested', url);
+            };
+          `}
+        </Script>
+
         <script id="meta-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)
