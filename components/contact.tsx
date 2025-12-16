@@ -65,6 +65,10 @@ export function Contact() {
         action: "bookingSuccessful",
         callback: function() {
           window.fbq && window.fbq('track', 'Schedule');
+          window.gtag && window.gtag('event', 'call_scheduled', {
+            cal_link: 'west-work-studios-k1avnr/voiceagent',
+            timestamp: new Date().toISOString()
+          });
           fetch('/api/facebook-events', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

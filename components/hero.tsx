@@ -6,11 +6,16 @@ import { Pill } from "./pill"
 import { Button } from "./ui/button"
 import { useState } from "react"
 import { trackEvent } from "@/lib/facebook-client"
+import { trackGAEvent } from "@/lib/google-analytics"
 
 export function Hero() {
   const [hovering, setHovering] = useState(false)
 
   const handleTryVoiceAgent = () => {
+    trackGAEvent("demo_requested", {
+      source: "hero_button",
+      timestamp: new Date().toISOString(),
+    })
     trackEvent("Lead")
   }
 

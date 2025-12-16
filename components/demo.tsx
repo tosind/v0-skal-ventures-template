@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { Button } from "./ui/button"
 import { Phone, Mic, MicOff, Volume2, VolumeX } from "lucide-react"
 import Vapi from "@vapi-ai/web"
+import { trackGAEvent } from "@/lib/google-analytics"
 
 const agents = [
   {
@@ -109,6 +110,12 @@ export function Demo() {
       console.log("[v0] Starting call with assistant:", currentAgent.vapiAssistantId)
       setCallStatus("connecting")
       setTranscript([])
+
+      trackGAEvent("demo_requested", {
+        source: "voice_call",
+        agent: currentAgent.name,
+        timestamp: new Date().toISOString(),
+      })
 
       await vapiRef.current.start(currentAgent.vapiAssistantId)
     } catch (error) {
