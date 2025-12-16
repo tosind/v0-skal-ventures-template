@@ -95,7 +95,10 @@ export function Contact() {
               Ready to <i className="font-light">transform</i> your practice?
             </h2>
             <p className="text-foreground/60 font-mono text-sm md:text-base">
-              Schedule a personalized demo with West Work Studio
+              Schedule a personalized demo with West Work Studio •{" "}
+              <a href="tel:+18557210499" className="text-foreground hover:underline font-semibold">
+                (855) 721-0499
+              </a>
             </p>
           </div>
 

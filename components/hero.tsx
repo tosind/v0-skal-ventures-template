@@ -19,6 +19,13 @@ export function Hero() {
     trackEvent("Lead")
   }
 
+  const handleScheduleClick = () => {
+    const contactSection = document.getElementById("contact")
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
   return (
     <div className="flex flex-col h-svh justify-between">
       <GL hovering={hovering} />
@@ -33,6 +40,15 @@ export function Hero() {
           See how medspas are automating 80–90 percent of calls using AI that sounds human.
         </p>
 
+        <div className="mt-6 text-foreground/60 font-mono text-sm">
+          <p>
+            Have questions? Call us at{" "}
+            <a href="tel:+18557210499" className="text-foreground hover:underline font-semibold">
+              (855) 721-0499
+            </a>
+          </p>
+        </div>
+
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-14">
           <Link className="contents max-sm:hidden" href="/#demo" onClick={handleTryVoiceAgent}>
             <Button onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)}>
@@ -45,22 +61,14 @@ export function Hero() {
             </Button>
           </Link>
 
-          <Link
-            className="contents max-sm:hidden"
-            href="https://cal.com/west-work-studios-k1avnr/voiceagent"
-            target="_blank"
-          >
+          <button className="contents max-sm:hidden" onClick={handleScheduleClick}>
             <Button variant="outline">Schedule a Call</Button>
-          </Link>
-          <Link
-            className="contents sm:hidden"
-            href="https://cal.com/west-work-studios-k1avnr/voiceagent"
-            target="_blank"
-          >
+          </button>
+          <button className="contents sm:hidden" onClick={handleScheduleClick}>
             <Button variant="outline" size="sm">
               Schedule a Call
             </Button>
-          </Link>
+          </button>
         </div>
       </div>
     </div>
