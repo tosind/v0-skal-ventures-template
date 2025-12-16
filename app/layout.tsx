@@ -25,6 +25,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-4E5S9NNQQV" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-4E5S9NNQQV');
+          `}
+        </Script>
+
         <script id="meta-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)
